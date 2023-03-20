@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class Basket : MonoBehaviour
 {
+    public bool isPlayer = true;
+    public AudioSource sfx;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Fruta"))
+        if(other.CompareTag("Fruta")  )
         {
-            GameManager.instance.AddPuntaje(1);
+            if(isPlayer)
+            {
+                FrutasDetails fd = other.GetComponent<FrutasDetails>();
+                GameManager.instance.AddPuntaje(fd.scoreToAdd);
+                sfx.clip = fd.sfxClip;
+                sfx.Play();
+            }            
             Destroy(other.gameObject);
         }
     }
