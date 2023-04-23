@@ -10,6 +10,7 @@ public enum STATS
 
 public class TamagochiManager : MonoBehaviour
 {
+    
     public Image barHungry, barClean, barHapiness;
     public float hungry;
     public float clean;
@@ -17,6 +18,8 @@ public class TamagochiManager : MonoBehaviour
     public float happinessThreshold;
     public float cleanThreshold;
     public float hungryThreshold;
+    public ParticleSystem sickParticles;
+    public Animator anim;
 
     public static TamagochiManager instance;
     private void Awake()
@@ -26,6 +29,7 @@ public class TamagochiManager : MonoBehaviour
     private void Feed(float amount)
     {
         hungry+= amount;
+        anim.SetBool("Comiendo", true);
         if(hungry > hungryThreshold) 
         { 
             hungry = hungryThreshold;
@@ -64,8 +68,52 @@ public class TamagochiManager : MonoBehaviour
     }
     private void Update()
     {
-        barHungry.fillAmount = hungry / hungryThreshold;
-        barClean.fillAmount = clean / cleanThreshold;
-        barHapiness.fillAmount = happiness / happinessThreshold;
+        barHungry.fillAmount = GetHungry();
+        barClean.fillAmount = GetClean();
+        barHapiness.fillAmount = GetHappy();
+        if (GetClean() < 0.25f)
+        {
+            if(sickParticles.isStopped)
+            {
+                sickParticles.Play();
+            }
+           
+        }
+        else if(!sickParticles.isStopped)
+        {
+            sickParticles.Stop();
+        }
+        if (GetClean() < .25f || GetHungry() < .25f || GetHappy() < .25f)
+        {
+            anim.SetBool("Triste", true);
+        }
+        else
+        {
+            anim.SetBool("Triste", false);
+        }
+        if (GetClean() > .75f || GetHungry() > .75f || GetHappy() > .75f)
+        {
+            anim.SetBool("Contento", true);
+        }
+        else
+        {
+            anim.SetBool("Contento", false);
+        }
+    }
+    public float GetHungry()
+    {
+        return hungry/hungryThreshold;
+    }
+    public float GetClean()
+    {
+        return clean/cleanThreshold;
+    }
+    public float GetHappy()
+    {
+        return happiness/happinessThreshold;
+    }
+    public void SetComiendo()
+    {
+        anim.SetBool("Comiendo", false);
     }
 }
