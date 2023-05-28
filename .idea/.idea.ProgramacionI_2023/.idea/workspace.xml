@@ -11,6 +11,9 @@
     <setting file="file://$PROJECT_DIR$/Assets/JuegoDelCubito/FeedbackCube.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/JuegoDelCubito/GameManagerCubito.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/JuegoDelCubito/TouchTheCube.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Script/ARPG/BillboardObject.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Script/ARPG/EnemyARPG.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Script/ARPG/Feedback.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -87,6 +90,7 @@
       <workItem from="1680471335799" duration="4980000" />
       <workItem from="1684707544076" duration="243000" />
       <workItem from="1684707873478" duration="2904000" />
+      <workItem from="1685307662477" duration="6068000" />
     </task>
     <servers />
   </component>

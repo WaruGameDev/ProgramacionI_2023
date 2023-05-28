@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
 {
     //public Transform target;
     public NavMeshAgent theAgent;
+    //enemy
+    public Transform targetEnemy;
     public Animator anim;
     public LayerMask groundMask, enemyMask;
     public PLAYER_STATES state;
@@ -37,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
                     case  "Enemy":
                         state = PLAYER_STATES.RUNNING_TO_ATTACK;
                         theAgent.SetDestination(hit.transform.position);
+                        targetEnemy = hit.transform;
                         moving = true;
                         break;
                         
@@ -52,10 +55,21 @@ public class PlayerMovement : MonoBehaviour
             state = PLAYER_STATES.IDLE;
             moving = false;
         }
-        if (theAgent.remainingDistance <= theAgent.stoppingDistance  && state == PLAYER_STATES.RUNNING_TO_ATTACK && moving)
+        if (theAgent.remainingDistance <= theAgent.stoppingDistance  
+            && state == PLAYER_STATES.RUNNING_TO_ATTACK && 
+            moving && !theAgent.pathPending)
         {
             moving = false;
             state = PLAYER_STATES.ATTACKING;
+        }
+
+        if (state == PLAYER_STATES.ATTACKING)
+        {
+            Vector3 directionToTarget = targetEnemy.position - transform.position;
+            directionToTarget.y = 0;
+            Quaternion rotation = Quaternion.LookRotation((directionToTarget));
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime*2);
         }
     }
 }
